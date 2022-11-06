@@ -7,13 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Student.init({
 
-    id: {
-      allowNull: false,
-      primaryKey: true,
-      type: Sequelize.INTEGER
-    },
-
-    nome: {
+    name: {
       type: Sequelize.STRING,
       allowNull: false
     },
