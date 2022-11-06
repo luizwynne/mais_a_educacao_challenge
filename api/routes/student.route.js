@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-
 const controller = require('../controllers/student.controller')
-const { validateStudent } = require('../validators/studentValidator');
+const { validateCreateStudent, validateUpdateStudent } = require('../validators/studentValidator');
 
 router.get('/', controller.findAll)
-router.post('/', validateStudent, controller.create)
+router.get('/:id', controller.findById)
+router.post('/', validateCreateStudent, controller.create)
+router.put('/:id', validateUpdateStudent, controller.update)
+router.delete('/:id', controller.delete)
 
 module.exports = router;
