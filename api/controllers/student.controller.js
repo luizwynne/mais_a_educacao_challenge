@@ -10,7 +10,7 @@ exports.findAll = (req,res) => {
 
 exports.findById = async (req, res) => {
     await Student.findByPk(req.params.id).then(student => {
-        res.json(student)
+        res.status(200).json(student)
     })
 }
 
@@ -30,30 +30,52 @@ exports.create = async (req, res) => {
 }
 
 exports.update = async (req, res) => {
-    
-    await Student.update({
-        name: req.body.name,
-        email: req.body.email,
-        ra: req.body.ra,
-        cpf: req.body.cpf
-    },
-    { where: {id: req.params.id} }
-    ).then(student => {
-        res.status(200).json({
-            'student': student,
-            'message': `Aluno ${student.name} editado com sucesso`
-        });
+
+    await Student.findByPk(req.params.id).then(student => {
+        
+        if(student !== null){
+            Student.update({
+                name: req.body.name,
+                email: req.body.email,
+                ra: req.body.ra,
+                cpf: req.body.cpf
+            },
+            { where: {id: req.params.id} }
+            ).then(() => {
+                res.status(200).json({
+                    'student': student,
+                    'message': `Aluno ${req.body.name} editado com sucesso`
+                });
+            })
+        }else{
+            res.status(400).json({
+                'message': `Aluno nao encontrado`
+            });
+        }
+        
     })
     
 }
 
 exports.delete = async (req, res) => {
-    await Student.destroy({
-        where: { id: req.params.id }
-    }).then(() => {
-        res.status(200).json({
-            'message': `Aluno com ID ${req.params.id} deletado com sucesso`
-        })
+
+    await Student.findByPk(req.params.id).then(student => {
+
+        if(student !== null){
+            Student.destroy({
+                where: { id: req.params.id }
+            }).then(() => {
+                res.status(200).json({
+                    'message': `Aluno com ID ${req.params.id} deletado com sucesso`
+                })
+            })
+        }else{
+            res.status(400).json({
+                'message': `Aluno nao encontrado`
+            });
+        }
+        
     })
+    
 }
 
