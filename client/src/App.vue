@@ -1,83 +1,78 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <div class="wrapper">
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <div class="d-flex align-center">
 
+         <v-img
+          :src="require('./assets/logo.png')"
+          class="my-3 logo-holder"
+          contain
+          height="200"
+        />
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+      </div>
 
-  <RouterView />
+      <v-spacer></v-spacer>
+
+      <ul>
+        <li>
+          <router-link to="/">Consulta de alunos</router-link>
+        </li>
+        <li>
+          <router-link to="/cadastro">Cadastrar aluno</router-link>
+        </li>
+      </ul>
+
+    </v-app-bar>
+
+    <v-main>
+      <v-container class="spacing-playground pa-6" fluid>
+        <router-view/>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
+<script>
+
+export default {
+  name: 'App',
+
+  data: () => ({
+    //
+  }),
+};
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+  .logo-holder{
+    margin-left: 10px;
+  }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
+  .v-application a {
+    color: white!important;
+    text-decoration: none;
+  }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
+  ul{
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    flex-direction: row;
+    list-style-type: none;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  li{
+    padding-left:15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
   }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  li:hover{
+    text-shadow: 0.5px 0.5px;
   }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>
