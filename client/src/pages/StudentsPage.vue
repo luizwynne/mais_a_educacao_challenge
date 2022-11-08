@@ -103,21 +103,21 @@ export default {
 
         searchStudents(){
             
-                let result = this.students
+            let result = this.students
                 
-                if (this.filterValue === ''){
-                    return result
-                }
+            if (this.filterValue === ''){
+                return result
+            }
                 
-                const filterValue = this.filterValue.toLowerCase()
-                console.log(filterValue)
-                let new_students = this.students.filter(student => {
-                    return student.name.toLowerCase().includes(filterValue) ||
-                        student.ra.toLowerCase().includes(filterValue) ||
-                        student.cpf.toLowerCase().includes(filterValue)
-                })
+            const filterValue = this.filterValue.toLowerCase()
                 
-                return new_students   
+            let new_students = this.students.filter(student => {
+                return student.name.toLowerCase().includes(filterValue) ||
+                       student.ra.toLowerCase().includes(filterValue) ||
+                       student.cpf.toLowerCase().includes(filterValue)
+            })
+                
+            return new_students   
             
         },
 
