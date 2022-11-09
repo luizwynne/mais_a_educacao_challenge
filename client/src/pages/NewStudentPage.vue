@@ -9,6 +9,15 @@
            {{apiResponse}}
         </v-alert>
 
+         <v-alert
+            dense
+            text
+            type="error"
+            v-if="showErrorMessage"
+        >
+           {{apiResponse}}
+        </v-alert>
+
         <h1>Cadastrar aluno</h1>
         
         <v-form
@@ -74,6 +83,7 @@ import axios from 'axios';
       valid: true,
       apiResponse: '',
       showCreatedMessage: false,
+      showErrorMessage: false,
       name: '',
       nameRules: [
         v => !!v || 'O campo Nome é obrigatório',
@@ -127,7 +137,13 @@ import axios from 'axios';
             this.reset()
 
         }).catch(e => {
-            console.log(e)
+            this.apiResponse = e.response.data.errors
+            this.showErrorMessage = true 
+
+            setTimeout(() => {
+                this.showErrorMessage = false
+                this.apiResponse = ''
+            }, 5000)
         })
       }, 
 
