@@ -24,7 +24,6 @@ exports.validateUpdateStudent = [
 
   check('name').isLength({ min: 2 }),
   check('email').isEmail(),
-  check('cpf').isLength({ min: 11 }),
 
   (req, res, next) => {
 

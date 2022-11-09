@@ -31,13 +31,6 @@
                 required
             ></v-text-field>
 
-            <v-text-field
-                v-model="student.cpf"
-                :rules="cpfRules"
-                label="CPF"
-                required
-            ></v-text-field>
-
             <v-btn
                 :disabled="!isValidForm"
                 color="primary"
@@ -78,10 +71,6 @@ export default {
             emailRules: [
                 v => !!v || 'O campo E-mail é obrigatório',
                 v => /.+@.+\..+/.test(v) || 'O campo E-mail precisa ser válido',
-            ],
-            cpfRules: [
-                v => !!v || 'O campo CPF é obrigatório',
-                v => (v && v.length == 11) || 'O campo CPF precisa ter 11 caracteres',
             ]
         }
     },
@@ -104,8 +93,7 @@ export default {
             let uri = '/api/students/'+this.student.id;
             axios.put(ENV_URL+uri, {
                 name: this.student.name,
-                email: this.student.email,
-                cpf: this.student.cpf
+                email: this.student.email
             }).then(response => {
 
                 this.apiResponse = response.data.message
@@ -138,8 +126,7 @@ export default {
     computed:{
         isValidForm(){
            return (this.student.name && this.student.name.length >= 2) &&
-           /.+@.+\..+/.test(this.student.email) &&
-           this.student.cpf.length == 11
+           /.+@.+\..+/.test(this.student.email)
         }
     },
 

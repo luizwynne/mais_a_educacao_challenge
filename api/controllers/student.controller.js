@@ -49,8 +49,7 @@ exports.update = async (req, res) => {
             if(student !== null){
                 Student.update({
                     name: req.body.name,
-                    email: req.body.email,
-                    cpf: req.body.cpf
+                    email: req.body.email
                 },
                 { where: {id: req.params.id} }
                 ).then(() => {
