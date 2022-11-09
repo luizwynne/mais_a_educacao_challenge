@@ -32,13 +32,6 @@
             ></v-text-field>
 
             <v-text-field
-                v-model="student.ra"
-                :rules="raRules"
-                label="RA"
-                required
-            ></v-text-field>
-
-            <v-text-field
                 v-model="student.cpf"
                 :rules="cpfRules"
                 label="CPF"
@@ -89,10 +82,6 @@ export default {
             cpfRules: [
                 v => !!v || 'O campo CPF é obrigatório',
                 v => (v && v.length == 11) || 'O campo CPF precisa ter 11 caracteres',
-            ],
-            raRules: [
-                v => !!v || 'O campo RA é obrigatório',
-                v => (v && v.length == 9) || 'O campo RA precisa ter 9 caracteres',
             ]
         }
     },
@@ -116,7 +105,6 @@ export default {
             axios.put(ENV_URL+uri, {
                 name: this.student.name,
                 email: this.student.email,
-                ra: this.student.ra,
                 cpf: this.student.cpf
             }).then(response => {
 
@@ -151,8 +139,7 @@ export default {
         isValidForm(){
            return (this.student.name && this.student.name.length >= 2) &&
            /.+@.+\..+/.test(this.student.email) &&
-           this.student.cpf.length == 11 &&
-           this.student.ra.length == 9
+           this.student.cpf.length == 11
         }
     },
 
