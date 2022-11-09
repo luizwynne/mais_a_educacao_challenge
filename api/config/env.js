@@ -1,7 +1,9 @@
+const config = require('./config.json')
+
 const env = {
     database: 'mais_a_educacao_challenge',
-    username: 'root',
-    password: 'test',
+    username: config.development.username,
+    password: config.development.password,
     host: 'localhost',
     dialect: 'mysql',
     pool: {
