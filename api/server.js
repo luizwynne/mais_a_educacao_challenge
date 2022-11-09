@@ -1,7 +1,9 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+const cors = require('cors')
 app.use(bodyParser.json())
+app.use(cors({ origin: ['http://localhost:8080'], }))
 
 const db = require('./config/db.config.js');
 
@@ -11,6 +13,8 @@ db.sequelize.authenticate().then(() => {
 .catch(err => {
     console.error('Unable to connect to the database:', err);
 });
+
+
 
 app.use('/api/students', require('./routes/student.route'))
 
