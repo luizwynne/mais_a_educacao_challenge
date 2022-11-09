@@ -122,9 +122,8 @@ export default {
         },
 
         editItem (item) {
-            this.editedIndex = this.students.indexOf(item)
-            this.editedItem = Object.assign({}, item)
-            this.dialog = true
+            console.log(item.id)
+            this.$router.push('/editar/'+item.id)
         },
 
         deleteItem (item) {
@@ -152,15 +151,6 @@ export default {
             this.editedItem = Object.assign({}, this.defaultItem)
             this.editedIndex = -1
             })
-        },
-
-        save () {
-            if (this.editedIndex > -1) {
-                Object.assign(this.students[this.editedIndex], this.editedItem)
-            } else {
-                this.students.push(this.editedItem)
-            }
-            this.close()
         }
 
     }

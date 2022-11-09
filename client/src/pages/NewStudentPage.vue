@@ -8,7 +8,9 @@
         >
            {{apiResponse}}
         </v-alert>
+
         <h1>Cadastrar aluno</h1>
+        
         <v-form
             ref="form"
             v-model="valid"
@@ -53,7 +55,7 @@
 
             <v-btn
                 color="error"
-                @click="reset"
+                @click="redirect"
             >
                 Cancelar
             </v-btn>
@@ -136,6 +138,10 @@ import axios from 'axios';
       reset () {
         this.$refs.form.reset()
         this.$refs.form.resetValidation()
+      },
+
+      redirect(){
+        this.$router.push('/') 
       }
     },
   }

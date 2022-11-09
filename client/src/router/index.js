@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import StudentsPage from '../pages/StudentsPage.vue'
 import NewStudentPage from '../pages/NewStudentPage.vue'
+import EditStudentPage from '../pages/EditStudentPage'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path:'/cadastro', 
     name: 'NewStudentPage', 
     component: NewStudentPage
+  },
+  {
+    path:'/editar/:id', 
+    name: 'EditStudentPage', 
+    component: EditStudentPage
   }
 ]
 
