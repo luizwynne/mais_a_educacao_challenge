@@ -1,5 +1,15 @@
 <template>
     <div>
+
+        <v-alert
+            dense
+            text
+            type="success"
+            v-if="showCreatedMessage"
+        >
+           {{apiResponse}}
+        </v-alert>
+
         <h1>Alunos</h1>
         <div class="d-flex">
             <v-text-field v-model="filterValue" class="pt-5 mr-2" placeholder="Digite sua busca" outlined clearable></v-text-field>
@@ -52,6 +62,8 @@ export default {
             dialog: false,
             dialogDelete: false,
             loading: false,
+            apiResponse: '',
+            showCreatedMessage: false,
             headers: [
                 { text: 'Nome', value: 'name' },
                 { text: 'Registro academico', value: 'ra' },
@@ -61,19 +73,8 @@ export default {
             students: [],
             students_backup: [],
             filterValue : '',
-            editedIndex: -1,
-            editedItem: {
-                id: 0,
-                name: '',
-                ra: '',
-                cpf: ''
-            },
-            defaultItem: {
-                id: 0,
-                name: '',
-                ra: '',
-                cpf: ''
-            },
+            itemIndex: -1,
+            itemItemId: null
         }
     },
 
@@ -122,34 +123,43 @@ export default {
         },
 
         editItem (item) {
-            console.log(item.id)
             this.$router.push('/editar/'+item.id)
         },
 
         deleteItem (item) {
-            this.editedIndex = this.students.indexOf(item)
-            this.editedItem = Object.assign({}, item)
+            this.itemIndex = this.students.indexOf(item)
+            this.itemItemId = item.id
             this.dialogDelete = true
         },
 
         deleteItemConfirm () {
-            this.students.splice(this.editedIndex, 1)
-            this.closeDelete()
+
+            axios.delete(ENV_URL+'/api/students/'+this.itemItemId).then(response => {
+
+                this.students.splice(this.itemIndex, 1)
+                this.closeDelete()
+                this.apiResponse = response.data.message
+                this.showCreatedMessage = true
+
+                setTimeout(() => {
+                    this.showCreatedMessage = false
+                    this.apiResponse = ''
+                }, 5000)
+            })
+            
         },
 
         close () {
             this.dialog = false
             this.$nextTick(() => {
-            this.editedItem = Object.assign({}, this.defaultItem)
-            this.editedIndex = -1
+                this.itemIndex = -1
             })
         },
 
         closeDelete () {
             this.dialogDelete = false
             this.$nextTick(() => {
-            this.editedItem = Object.assign({}, this.defaultItem)
-            this.editedIndex = -1
+                this.itemIndex = -1
             })
         }
 
